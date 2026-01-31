@@ -2,10 +2,10 @@ import numpy as np
 
 ##### Chapter 2
 # Physical parameters
-m = 0.5  # mass of the arm (kg)
+m = 5  # mass of the arm (kg)
 ell = 0.3  # length of the arm (m)
 g = 9.8  # gravity (m/s**2)
-b = 0.01  # damping coefficient (Nms)
+b = 0.5  # damping coefficient (Nms)
 k = 3
 
 ##### Chapter 3

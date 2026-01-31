@@ -4,7 +4,7 @@ import numpy as np
 # Physical parameters
 Jc = 0.0042 # (kg)
 k = 0.1  # spring constant (Nm)
-b = 0.05  # damping coefficient (Nms)
+b = 0.1  # damping coefficient (Nms)
 d = 0.3
 g = 9.81
 m1 = mr = 0.25

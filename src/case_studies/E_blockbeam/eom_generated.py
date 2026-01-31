@@ -7,5 +7,5 @@ import numpy as np
 def calculate_eom(x, u, m1, m2, ell, b):
     [z, theta, zdot, thetadot] = x.flatten()  # ensure 1D
     [F] = u.flatten()  # ensure 1D
-    eom = np.array([[zdot], [thetadot], [thetadot**2*z - 9.8*np.sin(theta)], [6.0*F*ell*np.cos(theta)/(2.0*ell**2*m2 + 6.0*m1*z**2) - 29.4*ell*m2*np.cos(theta)/(2.0*ell**2*m2 + 6.0*m1*z**2) - 12.0*m1*thetadot*z*zdot/(2.0*ell**2*m2 + 6.0*m1*z**2) - 58.8*m1*z*np.cos(theta)/(2.0*ell**2*m2 + 6.0*m1*z**2)]])
+    eom = np.array([[zdot], [thetadot], [thetadot**2*z - 9.81*np.sin(theta)], [6.0*F*ell*np.cos(theta)/(2.0*ell**2*m2 + 6.0*m1*z**2) - 29.43*ell*m2*np.cos(theta)/(2.0*ell**2*m2 + 6.0*m1*z**2) - 12.0*m1*thetadot*z*zdot/(2.0*ell**2*m2 + 6.0*m1*z**2) - 58.86*m1*z*np.cos(theta)/(2.0*ell**2*m2 + 6.0*m1*z**2)]])
     return eom.squeeze()
