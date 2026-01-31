@@ -20,7 +20,7 @@ class VTOLVisualizer(Visualizer):
         xhat_hist: NDArray[np.float64] | None = None,
         d_hist: NDArray[np.float64] | None = None,
         dhat_hist: NDArray[np.float64] | None = None,
-        convert_to_F_tau: bool = True,
+        convert_to_F_tau: bool = False, # Make this false
     ):
         # NOTE: base Visualizer class will convert data to degrees for plotting
         # if "deg" is in the label

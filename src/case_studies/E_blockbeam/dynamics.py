@@ -5,9 +5,9 @@ import numpy as np
 from . import params as P
 from ..common.dynamics_base import DynamicsBase
 
-from case_studies.B_pendulum.eom_generated import calculate_eom
+from case_studies.E_blockbeam.eom_generated import calculate_eom
 
-class CartPendulumDynamics(DynamicsBase):
+class BlockbeamDynamics(DynamicsBase):
     def __init__(self, alpha=0.0):
         super().__init__(
             # Initial state conditions
@@ -32,31 +32,7 @@ class CartPendulumDynamics(DynamicsBase):
         """
         Return xdot = f(x,u).
         """
-
         xdot = calculate_eom(x, u, self.m1, self.m2, self.ell, self.b)
-
-
-        # re-label states and inputs for readability
-        z, theta, zdot, thetadot = x
-        force = u[0]
-
-        # TODO: decide whether to label terms like this
-        moment_arm = self.m1 * self.ell / 2.0
-        mass = self.m1 + self.m2
-        rotational_inertia = self.m1 * self.ell**2 / 3
-
-        M12 = moment_arm * np.cos(theta)
-        M = np.array([[mass, M12], # fmt: skip
-                      [M12, rotational_inertia]]) # fmt: skip
-
-        friction = self.b * zdot
-        weight_moment = moment_arm * self.g * np.sin(theta)
-        tmp = moment_arm * thetadot**2 * np.sin(theta)
-        c = np.array([tmp + force - friction, weight_moment])
-
-        zddot, thetaddot = np.linalg.solve(M, c)
-
-        xdot = np.array([zdot, thetadot, zddot, thetaddot])
         return xdot
 
     def h(self):

@@ -3,7 +3,7 @@
 from case_studies.common import sym_utils as su
 
 # local imports (from this folder)
-from generate_KE import *
+from case_studies.B_pendulum.generate_KE import *
 
 # This makes it so printing from su only happens when running this file directly
 su.enable_printing(__name__ == "__main__")
@@ -74,7 +74,7 @@ display(Math(vlatex(thetadd_eom)))
 # OK, now we can get the state variable form of the equations of motion.
 
 # %%
-import params as P
+import case_studies.B_pendulum.params as P
 import numpy as np
 
 # defining fixed parameters that are not states or inputs (like g, ell, m1, m2, b)

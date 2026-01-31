@@ -16,7 +16,7 @@ __all__ = ["Animator", "Visualizer", "params"]
 # Using try/except allows the package to work even when files are missing
 
 try:
-    from .dynamics import VTOLDynamics as Dynamics
+    from .dynamics import VtolDynamics as Dynamics
 
     __all__.append("Dynamics")
 except ImportError:
