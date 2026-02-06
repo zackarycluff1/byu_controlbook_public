@@ -14,7 +14,7 @@ class MassDynamics(DynamicsBase):
             state0=np.array([P.z0, P.zdot0]),
             # Input force limits
             u_max=P.force_max,
-            u_min=-P.force_min,
+            u_min=-P.force_max,
             # Time step for integration
             dt=P.ts,
         )

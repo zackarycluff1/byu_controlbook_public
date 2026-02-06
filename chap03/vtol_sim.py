@@ -8,17 +8,26 @@ from case_studies import common, F_vtol
 # initialize system and input generator
 vtol1 = F_vtol.Dynamics()
 force_gen = common.SignalGenerator(amplitude=0.5, frequency=1.0, y_offset=14.715)
-tau_gen = common.SignalGenerator(amplitude=0.001, frequency=1.0, y_offset=-0.01)
+tau_gen = common.SignalGenerator(amplitude=0.001, frequency=1.0, y_offset=0.01)
 
 # initialize data storage
 x_hist = [vtol1.state]
 u_hist = []
 
 # loop over time
-time = np.arange(start=0.0, stop=25.0, step=F_vtol.params.ts, dtype=np.float64)
+time = np.arange(start=0.0, stop=15.0, step=F_vtol.params.ts, dtype=np.float64)
 for t in time[1:]:
     # generate input signal
-    u = np.array([force_gen.sin(t), tau_gen.sin(t)])
+    # u = np.array([force_gen.sin(t), tau_gen.sin(t)])
+
+    F_cmd = force_gen.sin(t)
+    tau_cmd = tau_gen.sin(t)
+
+    U = np.array([[F_cmd],
+                [tau_cmd]])          # (2,1)
+
+    u = (P.mixing @ U).squeeze()        # (2,)
+
 
     # simulate system
     y = vtol1.update(u)
@@ -30,7 +39,6 @@ for t in time[1:]:
 # convert data to numpy arrays
 x_hist = np.array(x_hist)
 u_hist = np.array(u_hist)
-print("Number of dimensions: %d" % u_hist.ndim)
 
 # visualize
 viz = F_vtol.Visualizer(time, x_hist, u_hist)

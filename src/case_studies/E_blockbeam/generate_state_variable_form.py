@@ -104,12 +104,12 @@ import numpy as np
 
 # converting the function to a callable function that uses numpy to evaluate and
 # return a list of state derivatives
-eom = sp.lambdify([state, ctrl_input, m1, m2, ell, b], state_dot, "numpy")
+# eom = sp.lambdify([state, ctrl_input, m1, m2, ell, b], state_dot, "numpy")
 
-# calling the function as a test to see if it works:
-cur_state = np.array([0, 0, 0, 0])
-cur_input = np.array([1])
-print("x_dot = ", eom(cur_state, cur_input, P.m1, P.m2, P.ell, P.b))
+# # calling the function as a test to see if it works:
+# cur_state = np.array([0, 0, 0, 0])
+# cur_input = np.array([1])
+# print("x_dot = ", eom(cur_state, cur_input, P.m1, P.m2, P.ell, P.b))
 
 
 # %% [markdown]

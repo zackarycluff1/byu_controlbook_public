@@ -5,8 +5,9 @@ import numpy as np
 m1 = 0.35  # mass of the pendulum (kg)
 m2 = 2.0  # mass of the cart (kg)
 ell = 0.5  # length of the rod (m)
-g = 9.81  # gravity (m/s**2)
+g = 9.8  # gravity (m/s**2)
 b = 0.00  # damping coefficient (Ns)
+z_e = 0.25
 
 ##### Chapter 3
 # Initial Conditions
@@ -53,5 +54,5 @@ Cr = np.eye(1, 4)  # only command z
 D = np.zeros((2, 1))
 
 ##### Chapter 8
-force_max = 5.0  # max force (N)
-theta0 = np.radians(10.0)  # (rad)
+force_max = 5000.0  # max force (N)
+theta0 = np.radians(0.0)  # (rad)

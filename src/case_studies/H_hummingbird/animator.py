@@ -9,7 +9,7 @@ from pyqtgraph.Vector import Vector
 import time
 
 # local (controlbook)
-from ..common.animator import OpenglWidgetAnimator
+from case_studies.common.animator import OpenglWidgetAnimator
 
 
 mygrey1 = np.array([0.8, 0.8, 0.8, 1], dtype=np.float32)  # light

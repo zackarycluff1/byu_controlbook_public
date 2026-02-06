@@ -25,6 +25,17 @@ t0 = 0.0  # start time
 tf = 50.0  # end time
 ts = 0.01  # integration time step
 
+mixing = np.array([
+    [0.5,  1/(2*d)],   # Fr
+    [0.5, -1/(2*d)],   # Fl
+])
+
+unmixer = np.array([
+    [1.0, 1.0],        # F
+    [d,  -d],          # tau = d*(Fr - Fl)
+])
+
+
 ##### Chapter 4
 # Linearization/equilibrium point
 x_eq = np.zeros(4)
@@ -59,4 +70,4 @@ u_eq = np.array([0.0])
 D = np.zeros((2, 1))
 
 ##### Chapter 8
-force_max = 5000000.0  # max torque (Nm)
+force_max = 5000.0  # max torque (Nm)

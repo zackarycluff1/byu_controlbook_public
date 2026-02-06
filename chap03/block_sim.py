@@ -14,7 +14,7 @@ x_hist = [mass.state]
 u_hist = []
 
 # loop over time
-time = np.arange(start=0.0, stop=20.0, step=D_mass.params.ts, dtype=np.float64)
+time = np.arange(start=0.0, stop=50.0, step=D_mass.params.ts, dtype=np.float64)
 for t in time[1:]:
     # generate input signal
     u = np.array([force_gen.sin(t)])

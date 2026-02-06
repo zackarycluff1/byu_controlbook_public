@@ -43,6 +43,6 @@ class VtolDynamics(DynamicsBase):
         """
         Return the output y = h(x).
         """
-        theta, phi = self.state[:2]
-        y = np.array([theta, phi])  # measure position states only
+        force, torque = self.state[:2]
+        y = np.array([force, torque])  # measure position states only
         return y

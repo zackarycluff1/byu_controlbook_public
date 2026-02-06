@@ -50,10 +50,11 @@ hd = h.diff(t)
 hdd = hd.diff(t)
 
 # defining symbols for external force and friction
-F, b, tau = symbols("F, b, tau")
-
+F, Fl, Fr, b, tau = symbols("F, Fl, Fr, b, tau")
+#F = Fl + Fr
+#tau = d * (Fr - Fl)
 # defining the right-hand side of the equation and combining it with E-L part
-RHS = Matrix([[-F * sin(theta) - b * z], [F * cos(theta)], [tau]])
+RHS = Matrix([[-F * sin(theta) - b * zd], [F * cos(theta)], [tau]])
 full_eom = El_case_studyF - RHS
 
 # finding and assigning zdd and thetadd
@@ -70,8 +71,8 @@ thetadd_eom = result[thetadd] # EOM for thetadd, as a function of states and inp
 hdd_eom = result[hdd]  # EOM for hdd, as a function of states and inputs
 
 display(Math(vlatex(zdd_eom)))
-display(Math(vlatex(thetadd_eom)))
 display(Math(vlatex(hdd_eom)))
+display(Math(vlatex(thetadd_eom)))
 
 # %% [markdown]
 # OK, now we can get the state variable form of the equations of motion.
