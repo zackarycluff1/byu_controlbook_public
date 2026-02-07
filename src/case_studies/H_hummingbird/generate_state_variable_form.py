@@ -26,7 +26,7 @@ su.enable_printing(__name__ == "__main__")
 # %%
 # TODO calculate the kinetic energy using the definition with the mass matrix "M"
 # and "qdot"
-# K =
+K = 0.5 * qdot.T * M * qdot
 
 # then make sure to grab just the scalar part of the result
 K = K[0, 0]
@@ -35,10 +35,10 @@ K = K[0, 0]
 # TODO: define symbols needed for potential energy and the RHS 
 # (e.g. friction, force_left, force_right, etc.) of the equations 
 # of motion.
-
+g, h, b, f_l, f_r, tau = symbols("g, h, b, f_l, f_r, tau")
 
 # TODO now calculate the potential energy "P"
-# P = 
+P = (g * m1 * ell_1 * sin(theta)) + (g * m2 * ell_2 * sin(theta)) + (g * m3 * ell_3z)
 
 su.printeq("P", P)
 
@@ -49,7 +49,8 @@ su.printeq("P", P)
 # ### Generalized Forces (tau):
 # %%
 # TODO: now calculate and define tau
-# tau = sp.Matrix([])
+ell_T = ell_1 + ell_2
+tau = sp.Matrix([d * (f_l - f_r)], [(ell_T) * (f_l - f_r) * cos(phi)], [(ell_T) * (f_l + f_r) * cos(theta) * sin(phi) - d * (f_l - f_r) * sin(theta)])
 
 
 # Group terms together for readability (this is to help with checking the result
@@ -66,7 +67,7 @@ su.printeq("tau", tau)
 # terms of Mdot, dM/dphi, dM/dtheta, and dM/dpsi.
 # %%
 # TODO: calculate Mdot and verify with lab manual
-# Mdot = 
+Mdot = M.diff(t) 
 
 
 #%%[markdown]
@@ -120,13 +121,13 @@ Mdot[2, 2] = Mdot33  # replace with simplified version
 
 # %%
 
-#dM_dphi = 
-#dM_dphi = sp.simplify(dM_dphi)
+dM_dphi = M.diff(phi)
+dM_dphi = sp.simplify(dM_dphi)
 
 su.printeq("dM/dϕ", dM_dphi)
 
 # %%
-# dM_dtheta =
+dM_dtheta = M.diff(theta)
 
 # substitute N33 just for printing to match the lab manual
 N33 = dM_dtheta[2, 2]
@@ -142,7 +143,7 @@ dM_dtheta = sp.Matrix(dM_dtheta)
 dM_dtheta[2, 2] = N33
 
 # %%
-# dM_dpsi =
+dM_dpsi = M.diff(psi)
 
 su.printeq("dM/dψ", dM_dpsi)
 
@@ -152,7 +153,7 @@ su.printeq("dM/dψ", dM_dpsi)
 # %%
 # TODO: calculate C
 # intermediate terms may be helpful, but calculate C -> 
-# C = 
+C = Mdot @ qdot - 0.5 * (sp.Matrix([qdot.T @ M.diff(q[0])], [qdot.T @ M.diff(q[1])], [qdot.T @ M.diff(q[2])])) @ qdot
 
 
 # can print C directly, but it is very long
@@ -161,7 +162,7 @@ su.printeq("dM/dψ", dM_dpsi)
 # %% [markdown]
 # ### Partial Derivative of Potential Energy (dP/dq):
 # %%
-# dP_dq = 
+dP_dq = P.diff(q)
 
 su.printeq("dP/dq", dP_dq)
 
