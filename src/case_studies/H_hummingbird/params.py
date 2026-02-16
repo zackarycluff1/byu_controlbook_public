@@ -2,12 +2,12 @@ import numpy as np
 
 ts = 0.01
 g = 9.81 
-ell1 = 0.247
-ell2 = 0.039
-ell3x = 0.007
-ell3y = -0.007
-ell3z = 0.018
-ellT = 0.355
+ell_1 = 0.247
+ell_2 = -0.039
+ell_3x = -0.007
+ell_3y = -0.007
+ell_3z = 0.018
+ell_T = 0.355
 d = 0.12
 m1 = 0.108862
 J1x = 0.000189
@@ -21,6 +21,19 @@ m3 = 0.1905
 J3x = 0.0002222
 J3y = 0.0001956
 J3z = 0.000027
+
+phi0 = 0
+theta0 = 0
+psi0 = 0
+phidot0 = 0
+thetadot0 = 0
+psidot0 = 0
+
+beta = 0.001
+
+u_e = 0.5 
+
+km = (m1*ell_1*g + m2*ell_2*g) / (ell_T * (2*u_e))
 
 
 ##### Chapter 4

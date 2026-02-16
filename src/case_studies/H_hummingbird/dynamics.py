@@ -29,21 +29,21 @@ class HummingbirdDynamics(DynamicsBase):
             "m1": self.randomize_parameter(P.m1, alpha),
             "m2": self.randomize_parameter(P.m2, alpha),
             "m3": self.randomize_parameter(P.m3, alpha),
-            "J_1x": self.randomize_parameter(P.J1x, alpha),
-            "J_1y": self.randomize_parameter(P.J1y, alpha),
-            "J_1z": self.randomize_parameter(P.J1z, alpha),
-            "J_2x": self.randomize_parameter(P.J2x, alpha),
-            "J_2y": self.randomize_parameter(P.J2y, alpha),
-            "J_2z": self.randomize_parameter(P.J2z, alpha),
-            "J_3x": self.randomize_parameter(P.J3x, alpha),
-            "J_3y": self.randomize_parameter(P.J3y, alpha),
-            "J_3z": self.randomize_parameter(P.J3z, alpha),
-            "ell_1": self.randomize_parameter(P.ell1, alpha),
-            "ell_2": self.randomize_parameter(P.ell2, alpha),
-            "ell_3x": self.randomize_parameter(P.ell3x, alpha),
-            "ell_3y": self.randomize_parameter(P.ell3y, alpha),
-            "ell_3z": self.randomize_parameter(P.ell3z, alpha),
-            "ell_T": self.randomize_parameter(P.ellT, alpha),
+            "J1x": self.randomize_parameter(P.J1x, alpha),
+            "J1y": self.randomize_parameter(P.J1y, alpha),
+            "J1z": self.randomize_parameter(P.J1z, alpha),
+            "J2x": self.randomize_parameter(P.J2x, alpha),
+            "J2y": self.randomize_parameter(P.J2y, alpha),
+            "J2z": self.randomize_parameter(P.J2z, alpha),
+            "J3x": self.randomize_parameter(P.J3x, alpha),
+            "J3y": self.randomize_parameter(P.J3y, alpha),
+            "J3z": self.randomize_parameter(P.J3z, alpha),
+            "ell_1": self.randomize_parameter(P.ell_1, alpha),
+            "ell_2": self.randomize_parameter(P.ell_2, alpha),
+            "ell_3x": self.randomize_parameter(P.ell_3x, alpha),
+            "ell_3y": self.randomize_parameter(P.ell_3y, alpha),
+            "ell_3z": self.randomize_parameter(P.ell_3z, alpha),
+            "ell_T": self.randomize_parameter(P.ell_T, alpha),
             "d": self.randomize_parameter(P.d, alpha),
             "g": P.g,
         }
@@ -72,19 +72,19 @@ class HummingbirdDynamics(DynamicsBase):
 
 
     def calculate_M(self, x):
-        # M = 
+        M = eom_generated.calculate_M(x, **self.eom_params)
         return M
 
     def calculate_C(self, x):
-        # C
+        C = eom_generated.calculate_C(x, **self.eom_params)
         return C
 
     def calculate_dP_dq(self, x):
-        # dP_dq = 
+        dP_dq = eom_generated.calculate_dP_dq(x, **self.eom_params)
         return dP_dq
 
     def calculate_tau(self, x, u):
-        # tau = 
+        tau = eom_generated.calculate_tau(x, u, **self.eom_params)
         return tau
 
     ############################################################################
@@ -108,9 +108,13 @@ class HummingbirdDynamics(DynamicsBase):
         # Re-label terms for readability
         qdot = x[3:6]
 
-        #TODO: Find qddot using the equations of motion, then formulate and return xdot
-        # qddot =
+        M = self.calculate_M(x)
+        C = self.calculate_C(x)
+        dP_dq = self.calculate_dP_dq(x)
+        tau = self.calculate_tau(x, u)
 
+        #TODO: Find qddot using the equations of motion, then formulate and return xdot
+        qddot = np.linalg.solve(M, (tau - self.B @ qdot - dP_dq - C))
         xdot = np.concatenate((qdot, qddot))
         return xdot
 
@@ -124,7 +128,10 @@ class HummingbirdDynamics(DynamicsBase):
             y (1D numpy array): output vector [phi, theta, psi]
         """
         #TODO: return the measured outputs based on self.state - these would be the first three states
-        # y = 
+        phi = self.state[0]
+        theta = self.state[1]
+        psi = self.state[2]
+        y = np.array([phi, theta, psi])
         return y
 
     def update(self, pwm):

@@ -35,7 +35,7 @@ K = K[0, 0]
 # TODO: define symbols needed for potential energy and the RHS 
 # (e.g. friction, force_left, force_right, etc.) of the equations 
 # of motion.
-g, h, b, f_l, f_r, tau = symbols("g, h, b, f_l, f_r, tau")
+g, h, b, f_l, f_r, tau, d, ell_T = symbols("g, h, b, f_l, f_r, tau, d, ell_T")
 
 # TODO now calculate the potential energy "P"
 P = (g * m1 * ell_1 * sin(theta)) + (g * m2 * ell_2 * sin(theta)) + (g * m3 * ell_3z)
@@ -49,8 +49,8 @@ su.printeq("P", P)
 # ### Generalized Forces (tau):
 # %%
 # TODO: now calculate and define tau
-ell_T = ell_1 + ell_2
-tau = sp.Matrix([d * (f_l - f_r)], [(ell_T) * (f_l - f_r) * cos(phi)], [(ell_T) * (f_l + f_r) * cos(theta) * sin(phi) - d * (f_l - f_r) * sin(theta)])
+# ell_T = ell_1 + ell_2
+tau = sp.Matrix([d * (f_l - f_r), (ell_T) * (f_l + f_r) * cos(phi), (ell_T) * (f_l + f_r) * cos(theta) * sin(phi) - d * (f_l - f_r) * sin(theta)])
 
 
 # Group terms together for readability (this is to help with checking the result
@@ -153,7 +153,7 @@ su.printeq("dM/dψ", dM_dpsi)
 # %%
 # TODO: calculate C
 # intermediate terms may be helpful, but calculate C -> 
-C = Mdot @ qdot - 0.5 * (sp.Matrix([qdot.T @ M.diff(q[0])], [qdot.T @ M.diff(q[1])], [qdot.T @ M.diff(q[2])])) @ qdot
+C = Mdot @ qdot - 0.5 * (sp.Matrix([qdot.T @ dM_dphi, qdot.T @ dM_dtheta, qdot.T @ dM_dpsi])) @ qdot
 
 
 # can print C directly, but it is very long
@@ -208,24 +208,24 @@ if __name__ == "__main__":
     P = H_hummingbird.params
 
     param_vals = {
-        "m_1": P.m1,
-        "m_2": P.m2,
-        "m_3": P.m3,
-        "J_1x": P.J1x,
-        "J_1y": P.J1y,
-        "J_1z": P.J1z,
-        "J_2x": P.J2x,
-        "J_2y": P.J2y,
-        "J_2z": P.J2z,
-        "J_3x": P.J3x,
-        "J_3y": P.J3y,
-        "J_3z": P.J3z,
-        "ell_1": P.ell1,
-        "ell_2": P.ell2,
-        "ell_3x": P.ell3x,
-        "ell_3y": P.ell3y,
-        "ell_3z": P.ell3z,
-        "ell_T": P.ellT,
+        "m1": P.m1,
+        "m2": P.m2,
+        "m3": P.m3,
+        "J1x": P.J1x,
+        "J1y": P.J1y,
+        "J1z": P.J1z,
+        "J2x": P.J2x,
+        "J2y": P.J2y,
+        "J2z": P.J2z,
+        "J3x": P.J3x,
+        "J3y": P.J3y,
+        "J3z": P.J3z,
+        "ell_1": P.ell_1,
+        "ell_2": P.ell_2,
+        "ell_3x": P.ell_3x,
+        "ell_3y": P.ell_3y,
+        "ell_3z": P.ell_3z,
+        "ell_T": P.ell_T,
         "d": P.d,
         "g": P.g,
     }

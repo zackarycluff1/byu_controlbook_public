@@ -27,7 +27,7 @@ enable_printing(__name__ == "__main__")
 
 # Defining necessary symbols and variables to use in the calculations e.g. t, ell_1, m1, J1x, phi, theta, psi, etc.
 # TODO define all necessary symbols
-t, ell_1, ell_2, ell_3x, ell_3y, ell_3z, m1, m2, m3, J1x, J1y, J1z, J2x, J2y, J2z, J3x, J3y, J3z, d = symbols("t, ell_1, ell_2, ell_3x, ell_3y, ell_3z, m1, m2, m3, J_1x, J_1y, J_1z, J_2x, J_2y, J_2z, J_3x, J_3y, J_3z, d")
+t, ell_1, ell_2, ell_3x, ell_3y, ell_3z, m1, m2, m3, J1x, J1y, J1z, J2x, J2y, J2z, J3x, J3y, J3z, d = symbols("t, ell_1, ell_2, ell_3x, ell_3y, ell_3z, m1, m2, m3, J1x, J1y, J1z, J2x, J2y, J2z, J3x, J3y, J3z, d")
 
 # TODO Define time-varying symbols for generalized coordinates and their derivatives
 phi, theta, psi = dynamicsymbols("phi, theta, psi")
