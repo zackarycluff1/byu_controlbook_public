@@ -32,9 +32,9 @@ except ImportError:
     pass
 
 try:
-    from .lateral_pd_controller import HummingbirdControllerLateralPD as ControllerLateralPD
+    from .full_pd_controller import HummingbirdControllerFullPD as ControllerPD
 
-    __all__.append("ControllerLateralPD")
+    __all__.append("ControllerPD")
 except ImportError:
     pass
 
