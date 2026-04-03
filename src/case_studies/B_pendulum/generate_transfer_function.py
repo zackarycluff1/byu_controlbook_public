@@ -3,7 +3,7 @@
 from case_studies.common import sym_utils as su
 
 # local imports (from this folder)
-from generate_linearization import *
+from case_studies.B_pendulum.generate_linearization import *
 from sympy.physics.control import TransferFunction
 
 # This makes it so printing from su only happens when running this file directly

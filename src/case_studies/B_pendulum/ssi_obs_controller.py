@@ -109,12 +109,12 @@ class CartPendulumSSIOController(ControllerBase):
 
         return u, xhat
 
-    def observer_f(self, xhat, y):
-        y_error = y - P.Cm @ xhat  # can also use tilde vars (eq subtracts out)
-        xhat_tilde = xhat - self.x_eq
+    def observer_f(self, xhat_tilde, y):
+        xhat = xhat_tilde + self.x_eq
+        y_error = y - P.Cm @ xhat  # can also use tilde vars (equil. terms subtract out)
         u_tilde = self.u_prev - self.u_eq
-        xhat_dot = P.A @ xhat_tilde + P.B @ u_tilde + self.L @ y_error
-        return xhat_dot
+        xhat_tilde_dot = P.A @ xhat_tilde + P.B @ u_tilde + self.L @ y_error
+        return xhat_tilde_dot
 
     def observer_rk4_step(self, y):
         k1 = self.observer_f(self.xhat_tilde, y)
