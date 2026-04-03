@@ -17,5 +17,15 @@ t0 = 0.0  # start time
 tf = 50.0  # end time
 ts = 0.01  # integration time step
 
+tf_num = [1/m]
+tf_den = [1, b/m, k/m]
 
 force_max = 6.0
+
+u_eq = 0
+x_eq = np.zeros(2)
+
+A = np.array([[0, 1], [-k/m, -b/m]])
+B = np.array([[0], [1/m]])
+Cr = np.array([1, 0])
+Cm = Cr

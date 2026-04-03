@@ -31,9 +31,16 @@ psidot0 = 0
 
 beta = 0.001
 
-u_e = 0.5 
+km = (ell_T) / (m1*ell_1*g + m2*ell_2*g)
 
-km = (m1*ell_1*g + m2*ell_2*g) / (ell_T * (2*u_e))
+tf_theta_num = [ell_T / (m1*ell_1**2 + m2*ell_2**2 + J1y + J2y)]
+tf_theta_den = [1, 0, 0]
+
+tf_phi_num = [1 / J1x]
+tf_phi_den = [1, 0, 0]
+
+tf_psi_num = [(ell_T / km) / (m1*ell_1**2 + m2*ell_2**2 + m3*ell_3x**2 + m3*ell_3y**2 + J1z + J2z + J3z)]
+tf_psi_den = [1, 0, 0]
 
 
 ##### Chapter 4

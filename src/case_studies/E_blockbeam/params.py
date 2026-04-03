@@ -25,34 +25,34 @@ ts = 0.01  # integration time step
 
 ##### Chapter 4
 # Linearization/equilibrium point
-x_eq = np.zeros(4)
-u_eq = np.array([0.0])
+x_eq = np.array([z_e, 0, 0, 0])
+u_eq = g*m2/2 + g*m1*z_e/ell
+# u_eq = 0
 
 ##### Chapter 5
 # Transfer function numerator and denominator
 mass = m1 + m2
 temp = m1 * ell / 6.0 + m2 * 2 * ell / 3.0
-tf_inner_num = [-1 / temp]
-tf_inner_den = [1, 0, -mass * g / temp]
-tf_outer_num = [-2 * ell / 3, 0, g]
+tf_inner_num = [ell / ((m2 * ell**2 /3) + m1*z_e**2)]
+tf_inner_den = [1, 0, 0]
+tf_outer_num = [-g]
 tf_outer_den = [1, 0, 0]
 
 ##### Chapter 6 / 11-14
 # State space
-temp = m1 / 4 + m2
 A = np.array(
     [
         [0, 0, 1, 0],
         [0, 0, 0, 1],
-        [0, -0.75 * m1 * g / temp, -b / temp, 0],
-        [0, 1.5 * mass * g / (temp * ell), 1.5 * b / (temp * ell), 0],
+        [0, -g, 0, 0],
+        [(-m1*g)/((m2*ell**2)/3 + m1*z_e**2), 0, 0, 0],
     ]
 )
-B = np.array([[0, 0, 1 / temp, -1.5 / (temp * ell)]]).T
+B = np.array([[0, 0, 0, (ell)/((m2*ell**2)/3 + m1*z_e**2)]]).T
 Cm = np.eye(2, 4)  # measure z and theta
-Cr = np.eye(1, 4)  # only command z
+Cr = np.array([[1, 0, 0, 0]])  # only command z
 D = np.zeros((2, 1))
 
 ##### Chapter 8
-force_max = 5000.0  # max force (N)
+force_max = 15.0  # max force (N)
 theta0 = np.radians(0.0)  # (rad)

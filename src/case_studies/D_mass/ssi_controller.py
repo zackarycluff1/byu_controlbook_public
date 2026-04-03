@@ -7,10 +7,10 @@ from . import params as P
 from ..common import ControllerBase
 
 
-class ArmSSIController(ControllerBase):
+class MassSSIController(ControllerBase):
     def __init__(self, separate_integrator=True):
         # tuning parameters
-        tr = 0.489
+        tr = 2
         zeta = 0.707
         integrator_pole = [-5.0]
 
@@ -43,24 +43,16 @@ class ArmSSIController(ControllerBase):
         # dirty derivative variables
         sigma = 0.05  # cutoff freq for dirty derivative
         self.beta = (2 * sigma - P.ts) / (2 * sigma + P.ts)
-        self.thetadot_hat = P.thetadot0
-        self.theta_prev = P.theta0
+        self.zdot_hat = P.zdot0
+        self.z_prev = P.z0
 
         # integrator variables
         self.error_prev = 0.0
         self.error_integral = 0.0
         self.separate_integrator = separate_integrator
 
-        # check observability
-        # define new poles for observer to be much faster
-        # calculate L by placing observer poles at desired location
-
-    # change to update with measurement()
     def update_with_state(self, r, x):
-        # calculate x _hat using our observer
-        #replace every instance of x with x_hat
         # convert to linearization (tilde) variables
-
         x_tilde = x - self.x_eq
 
         # integrate error
@@ -76,15 +68,8 @@ class ArmSSIController(ControllerBase):
             u_tilde = -self.K1 @ x1_tilde
 
         # convert back to original variables (feedback linearization)
-        theta = x[0]
-        u_fl = P.m * P.g * P.ell / 2 * np.cos(theta)
+        z = x[0]
+        u_fl = 0
         u_unsat = u_tilde + u_fl
-        u = self.saturate(u_unsat, u_max=P.tau_max)
+        u = self.saturate(u_unsat, u_max=P.force_max)
         return u
-
-
-# If doing everything in this folder use these below
-
-# def rk4_step(???)
-
-# def observer_dyanmics()

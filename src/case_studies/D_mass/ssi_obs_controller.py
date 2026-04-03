@@ -10,10 +10,10 @@ from ..common import ControllerBase
 from ..common.numeric_integration import rk4_step
 
 
-class ArmSSIOController(ControllerBase):
+class MassSSIOController(ControllerBase):
     def __init__(self, separate_integrator=True):
         # control tuning parameters
-        tr = 0.489
+        tr = 2
         zeta = 0.707
         integrator_pole = [-5.0]
 
@@ -86,10 +86,10 @@ class ArmSSIOController(ControllerBase):
             u_tilde = -self.K1 @ x1_tilde
 
         # convert back to original variables (for feedback linearization)
-        theta = xhat[0]
-        u_fl = P.m * P.g * P.ell / 2 * np.cos(theta)
+        x = xhat[0]
+        u_fl = P.u_eq
         u_unsat = u_tilde + u_fl
-        u = self.saturate(u_unsat, u_max=P.tau_max)
+        u = self.saturate(u_unsat, u_max=P.force_max)
 
         # save the previous control input for the observer
         self.u_prev = u
@@ -99,7 +99,7 @@ class ArmSSIOController(ControllerBase):
     def observer_f(self, xhat, y):
         y_error = y - P.Cm @ xhat  # can also use tilde vars (eq subtracts out)
         xhat_tilde = xhat - self.x_eq
-        u_fl = P.m * P.g * P.ell / 2 * np.cos(xhat[0])
+        u_fl = P.u_eq
         u_tilde = self.u_prev - u_fl
         xhat_dot = P.A @ xhat_tilde + P.B @ u_tilde + self.L @ y_error
         return xhat_dot

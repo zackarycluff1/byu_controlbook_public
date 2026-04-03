@@ -25,7 +25,7 @@ class BlockbeamDynamics(DynamicsBase):
         self.m1 = self.randomize_parameter(P.m1, alpha)  # pendulum
         self.m2 = self.randomize_parameter(P.m2, alpha)  # cart
         self.ell = self.randomize_parameter(P.ell, alpha)
-        self.b = self.randomize_parameter(P.b, alpha)
+        self.b = self.randomize_parameter(P.b, 0.0)
         self.g = P.g  # gravity constant is well known, so not randomized
 
     def f(self, x, u):

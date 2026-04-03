@@ -134,22 +134,27 @@ class HummingbirdDynamics(DynamicsBase):
         y = np.array([phi, theta, psi])
         return y
 
-    def update(self, pwm):
-        """
-        Integrates the system dynamics forward one time step using RK4.
-        This version accepts PWM inputs and converts them to forces.
+    # def update(self, pwm):
+    #     """
+    #     Integrates the system dynamics forward one time step using RK4.
+    #     This version accepts PWM inputs and converts them to forces.
 
-        Args:
-            pwm (NDArray[np.float64]): input vector [pwm_l, pwm_r].
-        Returns:
-            y (NDArray[np.float64]): measured output vector [phi, theta, psi].
-        """
-        # saturate pwm
-        pwm = np.clip(pwm, 0.0, 1.0)
+    #     Args:
+    #         pwm (NDArray[np.float64]): input vector [pwm_l, pwm_r].
+    #     Returns:
+    #         y (NDArray[np.float64]): measured output vector [phi, theta, psi].
+    #     """
+    #     # saturate pwm
+    #     pwm = np.clip(pwm, 0.0, 1.0)
 
-        # convert pwm to motor forces [f_l, f_r]
-        u = pwm * self.km
+    #     # convert pwm to motor forces [f_l, f_r]
+    #     u = pwm * self.km
 
-        # call update from parent class (DynamicsBase)
+    #     # call update from parent class (DynamicsBase)
+    #     y = super().update(u)
+    #     return y
+    def update(self, u):
+        # Here u = [f_l, f_r] directly
         y = super().update(u)
         return y
+

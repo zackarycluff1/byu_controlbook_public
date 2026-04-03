@@ -23,7 +23,7 @@ except ImportError:
     pass
 
 try:
-    from .altitude_pd_controller import AltitudeControllerPD
+    from .altitude_pd_controller import AltitudeControllerPD as ControllerPD1
 
     __all__.append("AltitudeControllerPD")
 except ImportError:
@@ -58,7 +58,7 @@ except ImportError:
     pass
 
 try:
-    from .ssi_obs_controller import VTOLControllerSSIO as ControllerSSIO
+    from .ssi_obs_controller1 import VTOLControllerSSIO as ControllerSSIO
 
     __all__.append("ControllerSSIO")
 except ImportError:

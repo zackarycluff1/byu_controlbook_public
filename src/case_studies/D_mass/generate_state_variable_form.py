@@ -88,7 +88,7 @@ zdd_eom = zdd_eom.subs(params)
 # ctrl_input = np.array([tau])
 
 state = sp.Matrix([z, zd])
-ctrl_input = sp.Matrix([tau])
+ctrl_input = sp.Matrix([F])
 
 # defining the function that will be called to get the derivatives of the states
 state_dot = sp.Matrix([zd, zdd_eom])

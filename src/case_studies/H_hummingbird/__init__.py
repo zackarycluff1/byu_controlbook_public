@@ -34,7 +34,7 @@ except ImportError:
     pass
 
 try:
-    from .full_pd_controller import HummingbirdControllerFullPD as ControllerFullPD
+    from .full_pd_controller_2 import HummingbirdControllerFullPD as ControllerFullPD
     __all__.append("ControllerFullPD")
 except ImportError:
     pass

@@ -8,7 +8,7 @@ from ..common.dynamics_base import DynamicsBase
 from case_studies.D_mass.eom_generated import calculate_eom
 
 class MassDynamics(DynamicsBase):
-    def __init__(self, alpha=0.0):
+    def __init__(self, alpha=0.2):
         super().__init__(
             # Initial state conditions
             state0=np.array([P.z0, P.zdot0]),
