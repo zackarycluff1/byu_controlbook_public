@@ -65,7 +65,7 @@ except ImportError:
     pass
 
 try:
-    from .controller_lqr import BlockbeamSSIDOController as ControllerLQRIDO
+    from .lqr_controller import BlockbeamSSIDOController as ControllerLQRIDO
 
     __all__.append("ControllerLQRIDO")
 except ImportError:

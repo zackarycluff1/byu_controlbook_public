@@ -33,10 +33,14 @@ class VtolDynamics(DynamicsBase):
         self.b = self.randomize_parameter(P.b, alpha)
 
     def f(self, x, u):
-        """
-        Return xdot = f(x,u).
-        """
         xdot = calculate_eom(x, u, self.m1, self.m2, self.m3, self.d, self.b, self.Jc)
+
+        # F.14 disturbances
+        wind = 1.0
+        altitude_dist = 1.0
+        xdot[0] += wind           # horizontal velocity disturbance
+        xdot[4] += altitude_dist  # altitude acceleration disturbance
+
         return xdot
 
     def h(self):

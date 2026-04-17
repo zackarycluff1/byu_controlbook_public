@@ -5,11 +5,10 @@ import numpy as np
 from case_studies import common, E_blockbeam
 
 
-blockbeam = E_blockbeam.Dynamics()
-controller = E_blockbeam.ControllerSSIO()
+blockbeam = E_blockbeam.Dynamics(alpha=0.2)
+controller = E_blockbeam.ControllerLQRIDO(separate_integrator=True)
 
-z_ref = common.SignalGenerator(amplitude=0.15, frequency=0.05, y_offset=0.25)
-theta_ref = None  #  allows controller outer loop to fill in this value (not necessary)
+z_ref = common.SignalGenerator(amplitude=0.5, frequency=0.04)
 refs = [z_ref]
 
 d_force = np.array([0.5])
@@ -26,9 +25,9 @@ time, x_hist, u_hist, r_hist, xhat_hist, d_hist, dhat_hist = common.run_simulati
     input_disturbance=d_force,
     output_noise=y_noise,
     t_final=60,
-    dt=E_blockbeam.params.ts,
+    dt=B_pendulum.params.ts,
 )
 
-viz = E_blockbeam.Visualizer(time, x_hist, u_hist, r_hist, xhat_hist, d_hist, dhat_hist)
+viz = B_pendulum.Visualizer(time, x_hist, u_hist, r_hist, xhat_hist, d_hist, dhat_hist)
 viz.plot()
 # viz.animate()

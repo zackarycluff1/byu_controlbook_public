@@ -6,7 +6,7 @@ from case_studies import common, F_vtol
 
 
 vtol = F_vtol.Dynamics(alpha=0.2)
-controller = F_vtol.ControllerSSIO()
+controller = F_vtol.ControllerSSIDO()
 
 z_ref = common.SignalGenerator(amplitude=4, frequency=0.05, y_offset=5)
 h_ref = common.SignalGenerator(amplitude=3, frequency=0.03, y_offset=5)
