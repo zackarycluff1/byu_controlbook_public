@@ -18,7 +18,7 @@ class MassSSController(ControllerBase):
             raise ValueError("System not controllable")
 
         # compute gains
-        wn = 2.2 / tr  # assumes zeta = 0.707
+        wn = 0.95  # assumes zeta = 0.707
         des_char_poly = [1, 2 * zeta * wn, wn**2]
         des_poles = np.roots(des_char_poly)
         self.K = cnt.place(P.A, P.B, des_poles)

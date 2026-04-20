@@ -12,6 +12,11 @@ __all__ = ["Animator", "Dynamics", "Visualizer", "params"]
 
 # Controllers (import with try/except for student version compatibility)
 try:
+    from .equi_controller import RodMassEquilibrium as ControllerEquilibrium
+    __all__.append("ControllerEquilibrium")
+except ImportError:
+    pass
+try:
     from .pid_controller import RodMassControllerPID as ControllerPID
     __all__.append("ControllerPID")
 except ImportError:

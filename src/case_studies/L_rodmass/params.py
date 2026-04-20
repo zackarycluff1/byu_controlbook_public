@@ -15,3 +15,11 @@ k1 = 0.02            # linear spring coefficient
 k2 = 0.01            # cubic spring coefficient (nonlinear term)
 
 # TODO: add any additional parameters needed for simulation or control here ...
+u_e = m*ell*g
+
+theta0 = 0
+thetadot0 = 0
+
+tau_max = 3
+tau_min = -3
+ts = 0.01

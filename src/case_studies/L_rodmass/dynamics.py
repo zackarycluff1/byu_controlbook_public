@@ -50,7 +50,13 @@ class RodMassDynamics(DynamicsBase):
         """
 
         # TODO: implement your dynamics here ... 
+        theta, thetadot = x
+        torque = u[0]
 
+        friction = self.b * thetadot
+        thetaddot = (torque - self.b*thetadot - self.m*self.g*self.ell*np.cos(theta) + self.k1*theta+self.k2*theta**3)/(self.m*self.ell**2)
+        xdot = np.array([thetadot, thetaddot])
+        return xdot
 
     def h(self):
         """
@@ -60,3 +66,6 @@ class RodMassDynamics(DynamicsBase):
             y: Output vector
         """
         # TODO: implement your output equation here ...
+        theta= self.state[0]
+        y = np.array([theta])
+        return y

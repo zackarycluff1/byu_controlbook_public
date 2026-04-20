@@ -21,7 +21,7 @@ reference = common.SignalGenerator(amplitude=0.0)  # zero reference
 # TODO: define the controller to use here (if you defined an equilibrium 
 # controller, use it here to verify equilibrium): 
 
-# controller = 
+controller = L_rodmass.ControllerEquilibrium()
 
 # Run simulation
 time, x_hist, u_hist, r_hist, xhat_hist, *_ = common.run_simulation(
