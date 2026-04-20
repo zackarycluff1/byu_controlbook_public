@@ -57,7 +57,7 @@ print("\n--- Parts 4.5 and 4.6: Observer with Input Disturbance ---")
 # TODO: Implement the state space integral controller with disturbance observer
 controller_dist = L_rodmass.ControllerSSIDO()
 # TODO: # Instantiate the system and controller with disturbance observer
-system_dist = L_rodmass.Dynamics(alpha=0.0)
+system_dist = L_rodmass.Dynamics(alpha=0.1)
 input_disturbance = common.SignalGenerator(amplitude=0.5*np.pi/180, frequency=0.1)
 
 # Run simulation with disturbance
