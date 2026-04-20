@@ -29,7 +29,9 @@ reference = common.SignalGenerator(amplitude=20*np.pi/180, frequency=0.1)
 print("\n--- Part 4.2: State-Space Control (Full State) ---")
 
 # TODO: Implement the state space integral controller
+controller_ssi = L_rodmass.ControllerSSI()
 # TODO: # Instantiate the system and state-space controller
+system_ssi = L_rodmass.Dynamics(alpha=0.0)
 
 # Run simulation (no input disturbance in this section)
 time_ssi, x_ssi, u_ssi, r_ssi, xhat_ssi, d_ssi, dhat_ssi = common.run_simulation(
@@ -53,7 +55,10 @@ viz_ssi.plot()
 print("\n--- Parts 4.5 and 4.6: Observer with Input Disturbance ---")
 
 # TODO: Implement the state space integral controller with disturbance observer
+controller_dist = L_rodmass.ControllerSSIDO()
 # TODO: # Instantiate the system and controller with disturbance observer
+system_dist = L_rodmass.Dynamics(alpha=0.0)
+input_disturbance = common.SignalGenerator(amplitude=0.5*np.pi/180, frequency=0.1)
 
 # Run simulation with disturbance
 time_dist, x_dist, u_dist, r_dist, xhat_dist, d_dist, dhat_dist = common.run_simulation(
@@ -77,7 +82,9 @@ viz_dist.plot()
 print("\n--- Part 4.7: LQR Controller ---")
 
 # TODO: Implement an LQR controller with integral control, and a disturbance observer. 
+controller_lqr = L_rodmass.lqr_controller()
 # TODO: # Instantiate the system and lqr controller
+system_lqr = L_rodmass.Dynamics(alpha=0.0)
 
 # Run simulation with disturbance
 time_lqr, x_lqr, u_lqr, r_lqr, xhat_lqr, d_lqr, dhat_lqr = common.run_simulation(
